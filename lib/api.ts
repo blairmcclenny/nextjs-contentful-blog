@@ -1,6 +1,6 @@
-async function fetchGraphQL(query: string, preview = false): Promise<any> {
+export async function fetchGraphQL(query: string, preview = false): Promise<any> {
   return fetch(
-    `https://graphql.contentful.com/content/v1/spaces/${process.env.CONTENTFUL_SPACE_ID}/environments/test`,
+    `https://graphql.contentful.com/content/v1/spaces/${process.env.CONTENTFUL_SPACE_ID}/environments/${process.env.CONTENTFUL_ENVIRONMENT}`,
     {
       method: "POST",
       headers: {
@@ -14,18 +14,4 @@ async function fetchGraphQL(query: string, preview = false): Promise<any> {
       body: JSON.stringify({ query }),
     }
   ).then((response) => response.json());
-}
-
-export async function getAllPosts() {
-  const entries = await fetchGraphQL(
-    `query {
-      blogPostCollection {
-        items {
-          title
-        }
-      }
-    }
-  `);
-
-  return entries?.data?.blogPostCollection?.items ?? [];
 }
