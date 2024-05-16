@@ -1,4 +1,7 @@
-export async function fetchGraphQL(query: string, preview = false): Promise<any> {
+export async function fetchGraphQL(
+  query: string,
+  preview = false
+): Promise<any> {
   return fetch(
     `https://graphql.contentful.com/content/v1/spaces/${process.env.CONTENTFUL_SPACE_ID}/environments/${process.env.CONTENTFUL_ENVIRONMENT}`,
     {

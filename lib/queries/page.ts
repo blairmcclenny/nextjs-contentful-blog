@@ -1,11 +1,43 @@
 import { fetchGraphQL } from "../api";
 
-export async function getAllPageSlugs() {
+const PAGE_GRAPHQL_FIELDS = `
+  sys {
+    id
+  }
+  title
+  slug
+  featuredImage {
+    url
+    width
+    height
+  }
+  body {
+    json
+  }
+  description
+`;
+
+export async function getHomePage() {
   const entries = await fetchGraphQL(
     `query {
-      pageCollection {
+      pageCollection(where: { slug: "home" }, limit: 1) {
         items {
-          slug
+          ${PAGE_GRAPHQL_FIELDS}
+        }
+      }
+    }
+  `
+  );
+
+  return entries?.data?.pageCollection?.items?.[0];
+}
+
+export async function getAllPages() {
+  const entries = await fetchGraphQL(
+    `query {
+      pageCollection(where: { slug_not: "home" }) {
+        items {
+          ${PAGE_GRAPHQL_FIELDS}
         }
       }
     }
@@ -18,9 +50,9 @@ export async function getAllPageSlugs() {
 export async function getPageBySlug(slug: string) {
   const entries = await fetchGraphQL(
     `query {
-      pageCollection(where: { slug: "${slug}" }) {
+      pageCollection(where: { slug: "${slug}", slug_not: "home"}, limit: 1) {
         items {
-          title
+          ${PAGE_GRAPHQL_FIELDS}
         }
       }
     }

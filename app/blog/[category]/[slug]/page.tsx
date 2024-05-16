@@ -30,7 +30,7 @@ export default async function BlogPage({
 
   return (
     <main>
-      <div>Blog Page: {post?.title}</div>
+      <div>{post?.title}</div>
     </main>
   );
 }

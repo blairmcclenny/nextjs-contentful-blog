@@ -1,7 +1,11 @@
+import { getHomePage } from "@/lib/queries/page";
+
 export default async function Home() {
+  const homePage = await getHomePage();
+
   return (
     <main>
-      <div>Home Page</div>
+      <div>{homePage?.title}</div>
     </main>
   );
 }

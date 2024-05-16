@@ -1,4 +1,4 @@
-import { getPageBySlug, getAllPageSlugs } from "@/lib/queries/page";
+import { getPageBySlug, getAllPages } from "@/lib/queries/page";
 import { notFound } from "next/navigation";
 
 interface Page {
@@ -6,7 +6,7 @@ interface Page {
 }
 
 export async function generateStaticParams() {
-  const pages = await getAllPageSlugs();
+  const pages = await getAllPages();
 
   return pages.map((page: Page) => ({
     slug: page.slug,
@@ -22,7 +22,7 @@ export default async function Page({ params }: { params: { slug: string } }) {
 
   return (
     <main>
-      <div>Page: {page?.title}</div>
+      <div>{page?.title}</div>
     </main>
   );
 }

@@ -26,7 +26,7 @@ export default async function BlogCategory({
 
   return (
     <main>
-      <div>{category.title}</div>
+      <div>{category?.title}</div>
     </main>
   );
 }
