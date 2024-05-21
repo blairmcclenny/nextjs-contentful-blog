@@ -5,8 +5,8 @@ import "./globals.css";
 const inter = Inter({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
-  title: "Contentful Blog",
-  description: "Blog sourced from Contentful",
+  title: "Lorem Ipsum",
+  description: "Lorem Ipsum Dolor Sit Amet",
 };
 
 export default function RootLayout({

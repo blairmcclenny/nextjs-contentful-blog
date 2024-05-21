@@ -1,8 +1,22 @@
 import { getPageBySlug, getAllPages } from "@/lib/queries/page";
+import { Metadata, ResolvingMetadata } from "next";
 import { notFound } from "next/navigation";
 
 interface Page {
   slug: string;
+}
+
+export async function generateMetadata(
+  { params }: { params: { slug: string } },
+  parent: ResolvingMetadata
+): Promise<Metadata> {
+  const page = await getPageBySlug(params.slug);
+  const parentPage = (await parent) as Metadata;
+
+  return {
+    title: page?.title || parentPage?.title,
+    description: page?.description || parentPage?.description,
+  };
 }
 
 export async function generateStaticParams() {
