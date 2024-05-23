@@ -1,42 +1,53 @@
-import { getPageBySlug, getAllPages } from "@/lib/queries/page";
-import { Metadata, ResolvingMetadata } from "next";
-import { notFound } from "next/navigation";
-
+import { getPageBySlug, getAllPages } from "@/lib/queries/page"
+import { notFound } from "next/navigation"
 interface Page {
-  slug: string;
+  slug: string
 }
 
-export async function generateMetadata(
-  { params }: { params: { slug: string } },
-  parent: ResolvingMetadata
-): Promise<Metadata> {
-  const page = await getPageBySlug(params.slug);
-  const parentPage = (await parent) as Metadata;
+export async function generateMetadata({
+  params,
+}: {
+  params: { slug: string }
+}) {
+  const page = await getPageBySlug(params?.slug)
 
   return {
-    title: page?.title || parentPage?.title,
-    description: page?.description || parentPage?.description,
-  };
+    title: page?.title,
+    description: page?.description,
+    openGraph: {
+      url: `/${params?.slug}`,
+      title: page?.title,
+      description: page?.description,
+      images: page?.featuredImage?.url && [
+        {
+          url: `${page?.featuredImage?.url}?w=1200&h=630&fit=crop&q=80`,
+          width: 1200,
+          height: 630,
+          alt: page?.title,
+        },
+      ],
+    },
+  }
 }
 
 export async function generateStaticParams() {
-  const pages = await getAllPages();
+  const pages = await getAllPages()
 
   return pages.map((page: Page) => ({
     slug: page.slug,
-  }));
+  }))
 }
 
 export default async function Page({ params }: { params: { slug: string } }) {
-  const page = await getPageBySlug(params.slug);
+  const page = await getPageBySlug(params.slug)
 
   if (!page) {
-    notFound();
+    notFound()
   }
 
   return (
     <main>
       <div>{page?.title}</div>
     </main>
-  );
+  )
 }
