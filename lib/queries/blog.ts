@@ -1,4 +1,4 @@
-import { fetchGraphQL } from "../api";
+import { fetchGraphQL } from "../api"
 
 const BLOG_POST_GRAPHQL_FIELDS = `
   sys {
@@ -23,7 +23,7 @@ const BLOG_POST_GRAPHQL_FIELDS = `
     json
   }
   description
-`;
+`
 
 const BLOG_CATEGORY_GRAPHQL_FIELDS = `
   sys {
@@ -31,7 +31,7 @@ const BLOG_CATEGORY_GRAPHQL_FIELDS = `
   }
   title
   slug
-`;
+`
 
 export async function getAllPosts() {
   const entries = await fetchGraphQL(
@@ -43,9 +43,9 @@ export async function getAllPosts() {
         }
       }
     `
-  );
+  )
 
-  return entries?.data?.blogPostCollection?.items;
+  return entries?.data?.blogPostCollection?.items
 }
 
 export async function getPostBySlug(slug: string) {
@@ -58,9 +58,9 @@ export async function getPostBySlug(slug: string) {
         }
       }
     `
-  );
+  )
 
-  return entries?.data?.blogPostCollection?.items?.[0];
+  return entries?.data?.blogPostCollection?.items?.[0]
 }
 
 export async function getAllCategories() {
@@ -73,9 +73,9 @@ export async function getAllCategories() {
         }
       }
     `
-  );
+  )
 
-  return entries?.data?.blogCategoryCollection?.items;
+  return entries?.data?.blogCategoryCollection?.items
 }
 
 export async function getCategoryBySlug(slug: string) {
@@ -88,7 +88,7 @@ export async function getCategoryBySlug(slug: string) {
         }
       }
     `
-  );
+  )
 
-  return entries?.data?.blogCategoryCollection?.items?.[0];
+  return entries?.data?.blogCategoryCollection?.items?.[0]
 }
