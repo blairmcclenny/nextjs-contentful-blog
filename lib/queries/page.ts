@@ -1,4 +1,4 @@
-import { fetchGraphQL } from "../api";
+import { fetchGraphQL } from "../api"
 
 const PAGE_GRAPHQL_FIELDS = `
   sys {
@@ -10,12 +10,13 @@ const PAGE_GRAPHQL_FIELDS = `
     url
     width
     height
+    description
   }
   body {
     json
   }
   description
-`;
+`
 
 export async function getHomePage() {
   const entries = await fetchGraphQL(
@@ -27,9 +28,9 @@ export async function getHomePage() {
       }
     }
   `
-  );
+  )
 
-  return entries?.data?.pageCollection?.items?.[0];
+  return entries?.data?.pageCollection?.items?.[0]
 }
 
 export async function getAllPages() {
@@ -42,9 +43,9 @@ export async function getAllPages() {
       }
     }
   `
-  );
+  )
 
-  return entries?.data?.pageCollection?.items;
+  return entries?.data?.pageCollection?.items
 }
 
 export async function getPageBySlug(slug: string) {
@@ -57,7 +58,7 @@ export async function getPageBySlug(slug: string) {
       }
     }
   `
-  );
+  )
 
-  return entries?.data?.pageCollection?.items?.[0];
+  return entries?.data?.pageCollection?.items?.[0]
 }
