@@ -10,6 +10,7 @@ const PAGE_GRAPHQL_FIELDS = `
     url
     width
     height
+    description
   }
   body {
     json

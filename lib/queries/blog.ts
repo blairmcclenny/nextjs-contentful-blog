@@ -18,6 +18,7 @@ const BLOG_POST_GRAPHQL_FIELDS = `
     url
     width
     height
+    description
   }
   body {
     json
@@ -31,6 +32,12 @@ const BLOG_CATEGORY_GRAPHQL_FIELDS = `
   }
   title
   slug
+  featuredImage {
+    url
+    width
+    height
+    description
+  }
 `
 
 export async function getAllPosts() {

@@ -9,13 +9,13 @@ export async function generateMetadata({
 }: {
   params: { slug: string }
 }) {
-  const page = await getPageBySlug(params?.slug)
+  const page = await getPageBySlug(params.slug)
 
   return {
     title: page?.title,
     description: page?.description,
     openGraph: {
-      url: `/${params?.slug}`,
+      url: `/${params.slug}`,
       title: page?.title,
       description: page?.description,
       images: page?.featuredImage?.url && [
@@ -23,7 +23,7 @@ export async function generateMetadata({
           url: `${page?.featuredImage?.url}?w=1200&h=630&fit=crop&q=80`,
           width: 1200,
           height: 630,
-          alt: page?.title,
+          alt: page?.featuredImage?.description,
         },
       ],
     },
