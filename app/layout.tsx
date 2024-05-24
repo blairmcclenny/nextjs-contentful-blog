@@ -1,8 +1,18 @@
-import { Inter } from "next/font/google"
+import { Open_Sans, Playfair_Display } from "next/font/google"
 import "./globals.css"
 import { getSiteSettings } from "@/lib/queries/settings"
 
-const inter = Inter({ subsets: ["latin"] })
+const playfair_display = Playfair_Display({
+  subsets: ["latin"],
+  display: "swap",
+  variable: "--font-playfair-display",
+})
+
+const open_sans = Open_Sans({
+  subsets: ["latin"],
+  display: "swap",
+  variable: "--font-open-sans",
+})
 
 export async function generateMetadata() {
   const siteSettings = await getSiteSettings()
@@ -22,8 +32,11 @@ export default function RootLayout({
   children: React.ReactNode
 }>) {
   return (
-    <html lang="en">
-      <body className={inter.className}>{children}</body>
+    <html
+      className={`${playfair_display.variable} ${open_sans.variable}`}
+      lang="en"
+    >
+      <body className="font-sans">{children}</body>
     </html>
   )
 }
