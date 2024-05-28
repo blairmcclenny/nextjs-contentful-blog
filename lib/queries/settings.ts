@@ -1,6 +1,47 @@
 import { fetchGraphQL } from "../api"
 
+export interface Link {
+  sys: {
+    id: string
+  }
+  title: string
+  type: "Url" | "Content"
+  url: string
+  content: {
+    __typename: string
+    slug: string
+    category?: {
+      slug: string
+    }
+  }
+}
+
+export interface SiteSettings {
+  title: string
+  siteName: string
+  siteUrl: string
+  siteDescription: string
+  siteImage: {
+    description: string
+    url: string
+    width: number
+    height: number
+  }
+  headerNavigationCollection: {
+    items: Link[]
+  }
+  footerNavigationCollection: {
+    items: Link[]
+  }
+  instagram: string
+  youTube: string
+  tikTok: string
+}
+
 const LINK_FIELDS = `
+  sys {
+    id
+  }
   title
   type
   url
