@@ -1,11 +1,11 @@
 import { fetchGraphQL } from "../api"
 
-interface Link {
+export interface Link {
   sys: {
     id: string
   }
   title: string
-  type: "Url" | "Content" | null
+  type: "Url" | "Content"
   url: string
   content: {
     __typename: string

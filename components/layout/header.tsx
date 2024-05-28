@@ -1,4 +1,5 @@
 import { SiteSettings, getSiteSettings } from "@/lib/queries/settings"
+import { getFormattedLink } from "@/utils/navigation"
 import Link from "next/link"
 
 export default async function Header() {
@@ -6,22 +7,15 @@ export default async function Header() {
   const navigation = siteSettings?.headerNavigationCollection?.items
 
   return (
-    <header>
-      <h1 className="font-serif">{siteSettings?.siteName}</h1>
-      <h2>{siteSettings?.siteDescription}</h2>
+    <header className="p-4 bg-[#ffbe98] flex items-center justify-between gap-6">
+      <h1 className="font-serif text-3xl italic font-bold">
+        <Link href="/">{siteSettings?.siteName}</Link>
+      </h1>
       <nav>
-        <ul>
-          {navigation?.map((item) => (
-            <li key={item.sys.id}>
-              <Link
-                href={
-                  item?.type && item?.type === "Url"
-                    ? item?.url
-                    : item?.content?.slug
-                }
-              >
-                {item.title}
-              </Link>
+        <ul className="flex gap-6 uppercase">
+          {navigation?.map((link) => (
+            <li key={link?.sys?.id}>
+              <Link href={getFormattedLink(link)}>{link?.title}</Link>
             </li>
           ))}
         </ul>
