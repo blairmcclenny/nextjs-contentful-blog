@@ -7,7 +7,7 @@ export default async function Header() {
   const navigation = siteSettings?.headerNavigationCollection?.items
 
   return (
-    <header className="p-4 bg-[#ffbe98] flex items-center justify-between gap-6">
+    <header className="py-4 px-16 bg-[#ffbe98] flex items-center justify-between gap-6">
       <h1 className="font-serif text-3xl italic font-bold">
         <Link href="/">{siteSettings?.siteName}</Link>
       </h1>
