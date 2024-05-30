@@ -1,7 +1,7 @@
-import { getHomePage } from "@/lib/queries/page";
+import { getHomePage } from "@/lib/queries/page"
 
 export async function generateMetadata() {
-  const homePage = await getHomePage();
+  const homePage = await getHomePage()
 
   return {
     description: homePage?.description,
@@ -17,15 +17,15 @@ export async function generateMetadata() {
         },
       ],
     },
-  };
+  }
 }
 
 export default async function Home() {
-  const homePage = await getHomePage();
+  const homePage = await getHomePage()
 
   return (
-    <main>
-      <div>{homePage?.title}</div>
-    </main>
-  );
+    <>
+      <h1>{homePage?.title}</h1>
+    </>
+  )
 }

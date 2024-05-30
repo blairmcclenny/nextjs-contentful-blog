@@ -2,12 +2,12 @@ import { SiteSettings, getSiteSettings } from "@/lib/queries/settings"
 import { getFormattedLink } from "@/utils/navigation"
 import Link from "next/link"
 
-export default async function Header() {
+export default async function Navigation() {
   const siteSettings: SiteSettings = await getSiteSettings()
   const navigation = siteSettings?.headerNavigationCollection?.items
 
   return (
-    <header className="py-4 px-16 bg-[#ffbe98] flex items-center justify-between gap-6">
+    <>
       <h1 className="font-serif text-3xl italic font-bold">
         <Link href="/">{siteSettings?.siteName}</Link>
       </h1>
@@ -20,6 +20,6 @@ export default async function Header() {
           ))}
         </ul>
       </nav>
-    </header>
+    </>
   )
 }
