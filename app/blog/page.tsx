@@ -28,8 +28,8 @@ export default async function BlogIndexPage() {
   const post = posts?.[0]
 
   return (
-    <main>
+    <>
       <div>{post?.slug}</div>
-    </main>
+    </>
   )
 }
