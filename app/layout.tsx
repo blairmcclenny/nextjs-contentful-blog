@@ -2,6 +2,7 @@ import { Open_Sans, Playfair_Display } from "next/font/google"
 import "./globals.css"
 import { getSiteSettings } from "@/lib/queries/settings"
 import Header from "@/components/layout/header"
+import Footer from "@/components/layout/footer"
 
 const playfair_display = Playfair_Display({
   subsets: ["latin"],
@@ -40,9 +41,7 @@ export default function RootLayout({
       <body className="font-sans">
         <Header />
         <main>{children}</main>
-        <footer className="py-4 px-16 bg-black text-white flex items-center justify-center">
-          <p>&copy; 2021 Your Company</p>
-        </footer>
+        <Footer />
       </body>
     </html>
   )
