@@ -20,7 +20,7 @@ export default async function Navigation() {
           ))}
         </ul>
       </nav>
-      <div>Client side hamurger menu goes here</div>
+      <div>hamurger menu goes here</div>
     </div>
   )
 }
