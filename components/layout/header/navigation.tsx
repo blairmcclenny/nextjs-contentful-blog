@@ -7,7 +7,7 @@ export default async function Navigation() {
   const navigation = siteSettings?.headerNavigationCollection?.items
 
   return (
-    <>
+    <div className="py-4 px-16 bg-[#ffbe98] flex items-center justify-between gap-6">
       <h1 className="font-serif text-3xl italic font-bold">
         <Link href="/">{siteSettings?.siteName}</Link>
       </h1>
@@ -20,6 +20,7 @@ export default async function Navigation() {
           ))}
         </ul>
       </nav>
-    </>
+      <div>Client side hamurger menu goes here</div>
+    </div>
   )
 }

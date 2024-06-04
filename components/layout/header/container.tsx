@@ -34,9 +34,9 @@ export default function Container({
   return (
     <header
       ref={headerRef}
-      className={`py-4 px-16 bg-[#ffbe98] flex items-center justify-between gap-6 sticky inset-0 ${
+      className={`sticky inset-0 transition-transform duration-300 ease-in-out ${
         scrollDirection === "down" ? "-translate-y-full" : "translate-y-0"
-      } transition-transform duration-300 ease-in-out`}
+      } `}
     >
       {children}
     </header>

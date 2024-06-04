@@ -40,7 +40,7 @@ export default function RootLayout({
     >
       <body className="font-sans">
         <Header />
-        <main>{children}</main>
+        <main className="min-h-[200vh]">{children}</main>
         <Footer />
       </body>
     </html>
