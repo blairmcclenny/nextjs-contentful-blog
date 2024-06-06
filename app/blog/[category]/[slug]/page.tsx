@@ -55,8 +55,8 @@ export default async function BlogPage({
   }
 
   return (
-    <main>
+    <>
       <div>{post?.title}</div>
-    </main>
+    </>
   )
 }

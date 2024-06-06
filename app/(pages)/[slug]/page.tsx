@@ -46,8 +46,8 @@ export default async function Page({ params }: { params: { slug: string } }) {
   }
 
   return (
-    <main>
+    <>
       <div>{page?.title}</div>
-    </main>
+    </>
   )
 }
