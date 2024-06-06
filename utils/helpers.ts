@@ -24,3 +24,7 @@ export function throttle(cb: () => void, delay: number = 100) {
     setTimeout(timeoutFunc, delay)
   }
 }
+
+export function isBrowser() {
+  return typeof window !== "undefined"
+}

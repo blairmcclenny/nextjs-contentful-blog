@@ -1,10 +1,11 @@
-import Navigation from "./navigation"
-import Container from "./container"
+import { SiteSettings, getSiteSettings } from "@/lib/queries/settings"
+import Content from "./content"
 
 export default async function Header() {
-  return (
-    <Container>
-      <Navigation />
-    </Container>
-  )
+  const siteSettings: SiteSettings = await getSiteSettings()
+
+  const siteName = siteSettings?.siteName
+  const navigation = siteSettings?.headerNavigationCollection?.items
+
+  return <Content siteName={siteName} navigation={navigation} />
 }
