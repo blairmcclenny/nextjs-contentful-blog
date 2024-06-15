@@ -37,7 +37,11 @@ export default function Content({
         <DesktopNavigation navigation={navigation} siteName={siteName} />
       )}
       {isMobile && (
-        <MobileNavigation navigation={navigation} siteName={siteName} />
+        <MobileNavigation
+          navigation={navigation}
+          siteName={siteName}
+          headerHeight={entry?.boundingClientRect?.height || 0}
+        />
       )}
     </header>
   )
