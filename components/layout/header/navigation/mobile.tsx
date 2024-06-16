@@ -73,15 +73,57 @@ function Menu({
   height: number
   setMenuOpen: any
 }) {
+  // TODO:
+  // make accessible
+  // setMenuOpen type to something other than any
+  // animate menu close
+
+  const navRef = useRef<HTMLDivElement>(null)
+  const tl = useRef<gsap.core.Timeline>()
+
+  useGSAP(
+    () => {
+      tl.current = gsap.timeline({
+        defaults: { duration: 0.2, ease: "power1.out" },
+      })
+
+      tl.current
+        .set(navRef.current, {
+          opacity: 0,
+        })
+        .set("ul li", {
+          opacity: 0,
+          y: 10,
+        })
+        .to(navRef.current, {
+          opacity: 1,
+        })
+        .to(
+          "ul li",
+          {
+            opacity: 1,
+            y: 0,
+            stagger: 0.1,
+          },
+          "<"
+        )
+    },
+    { scope: navRef }
+  )
+
   return (
     <nav
-      className="h-full w-full absolute top-0 p-4 bg-[#ffbe98]"
+      className="h-full w-full absolute top-0 px-4 bg-[#ffbe98]"
       style={{
         height: `calc(100vh - ${height}px)`,
         top: `${height}px`,
       }}
+      ref={navRef}
     >
-      <ul className="">
+      <ul
+        className="flex flex-col text-center gap-8 pb-32 h-full uppercase"
+        style={{ paddingTop: `max(${128 - height}px, 32px)` }}
+      >
         {navigation?.map((link: ContentfulLink) => (
           <li key={link?.sys?.id} onClick={() => setMenuOpen(false)}>
             <Link href={getFormattedLink(link)}>{link?.title}</Link>
@@ -103,18 +145,11 @@ export default function MobileNavigation({
 }) {
   // TODO:
   // fix throttle error on scroll
-  // style menu
-  // animate menu open and close
   // main content ui is broken using flex here
 
-  const [locked, setLocked] = useToggle(false)
   const [menuOpen, setMenuOpen] = useToggle(false)
 
-  useLockBodyScroll(locked)
-
-  useEffect(() => {
-    menuOpen ? setLocked(true) : setLocked(false)
-  }, [menuOpen])
+  useLockBodyScroll(menuOpen)
 
   return (
     <>
