@@ -1,12 +1,12 @@
 "use client"
 
-import useMediaQuery from "@/hooks/useMediaQuery"
 import useScrollDirection from "@/hooks/useScrollDirection"
 import useScrollPosition from "@/hooks/useScrollPosition"
 import { Link as ContentfulLink } from "@/lib/queries/settings"
-import { getFormattedLink } from "@/utils/navigation"
-import Link from "next/link"
 import { useInView } from "react-intersection-observer"
+import { useMedia } from "react-use"
+import DesktopNavigation from "./navigation/desktop"
+import MobileNavigation from "./navigation/mobile"
 
 export default function Content({
   siteName,
@@ -15,8 +15,8 @@ export default function Content({
   siteName: string
   navigation: Array<ContentfulLink>
 }) {
-  const isMobile = useMediaQuery("(max-width: 768px)")
-  const isDesktop = useMediaQuery("(min-width: 769px)")
+  const isMobile = useMedia("(max-width: 768px)", false)
+  const isDesktop = useMedia("(min-width: 769px)", false)
 
   const scrollDirection = useScrollDirection()
   const { y } = useScrollPosition()
@@ -33,26 +33,16 @@ export default function Content({
           : "translate-y-0"
       }`}
     >
-      <div
-        className={`py-4 px-16 bg-[#ffbe98] flex items-center justify-between gap-6 `}
-      >
-        <h1 className="font-serif text-3xl italic font-bold">
-          <Link href="/">{siteName}</Link>
-        </h1>
-        {/* desktop nav */}
-        {isDesktop && (
-          <nav>
-            <ul className="flex gap-6 uppercase">
-              {navigation?.map((link: ContentfulLink) => (
-                <li key={link?.sys?.id}>
-                  <Link href={getFormattedLink(link)}>{link?.title}</Link>
-                </li>
-              ))}
-            </ul>
-          </nav>
-        )}
-        {/* mobile nav */}
-      </div>
+      {isDesktop && (
+        <DesktopNavigation navigation={navigation} siteName={siteName} />
+      )}
+      {isMobile && (
+        <MobileNavigation
+          navigation={navigation}
+          siteName={siteName}
+          headerHeight={entry?.boundingClientRect?.height || 0}
+        />
+      )}
     </header>
   )
 }
