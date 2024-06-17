@@ -13,10 +13,6 @@ function MenuButton({
   menuOpen: boolean
   setMenuOpen: any
 }) {
-  // TODO:
-  // make accessible
-  // setMenuOpen type to something other than any
-
   const menuButtonRef = useRef<HTMLDivElement>(null)
   const tl = useRef<gsap.core.Timeline>()
 
@@ -77,10 +73,6 @@ function Menu({
   setMenuOpen: any
   setMenuTransitioning: any
 }) {
-  // TODO:
-  // make accessible
-  // setMenuOpen type to something other than any
-
   const navRef = useRef<HTMLDivElement>(null)
   const tlEnter = useRef<gsap.core.Timeline>()
   const tlTransition = useRef<gsap.core.Timeline>()
@@ -122,7 +114,7 @@ function Menu({
 
   useEffect(() => {
     setMenuTransitioning(true)
-  }, [])
+  }, [setMenuTransitioning])
 
   return (
     <nav
@@ -132,6 +124,7 @@ function Menu({
         top: `${height}px`,
       }}
       ref={navRef}
+      role="navigation"
     >
       <ul
         className="flex flex-col text-center gap-8 pb-32 h-full uppercase"
@@ -139,7 +132,12 @@ function Menu({
       >
         {navigation?.map((link: ContentfulLink) => (
           <li key={link?.sys?.id} onClick={() => setMenuOpen(false)}>
-            <Link href={getFormattedLink(link)}>{link?.title}</Link>
+            <Link
+              href={getFormattedLink(link)}
+              aria-label={`Navigate to ${link?.title}`}
+            >
+              {link?.title}
+            </Link>
           </li>
         ))}
       </ul>
@@ -157,13 +155,25 @@ export default function MobileNavigation({
   headerHeight: number
 }) {
   // TODO:
-  // fix throttle error on scroll
+  // fix throttle error on scroll (dev mode only)
   // main content ui is broken using flex here
 
   const [menuOpen, setMenuOpen] = useToggle(false)
   const [menuTransitioning, setMenuTransitioning] = useToggle(false)
 
   useLockBodyScroll(menuOpen)
+
+  useEffect(() => {
+    const handleEscape = (e: KeyboardEvent) => {
+      if (e.key === "Escape") {
+        setMenuOpen(false)
+      }
+    }
+
+    window.addEventListener("keydown", handleEscape)
+
+    return () => window.removeEventListener("keydown", handleEscape)
+  }, [setMenuOpen])
 
   return (
     <>
@@ -172,7 +182,9 @@ export default function MobileNavigation({
           className="font-serif text-3xl italic font-bold"
           onClick={() => setMenuOpen(false)}
         >
-          <Link href="/">{siteName}</Link>
+          <Link href="/" aria-label="Navigate to home page">
+            {siteName}
+          </Link>
         </h1>
         <MenuButton menuOpen={menuOpen} setMenuOpen={setMenuOpen} />
       </div>
