@@ -1,5 +1,6 @@
-import { isBrowser, throttle } from "@/utils/helpers"
+import { isBrowser } from "@/utils/helpers"
 import { useEffect, useState } from "react"
+import { throttle } from "lodash"
 
 export default function useScrollPosition() {
   const [scrollPosition, setScrollPosition] = useState({
@@ -15,7 +16,7 @@ export default function useScrollPosition() {
         x: window.scrollX,
         y: window.scrollY,
       })
-    })
+    }, 100)
 
     window.addEventListener("scroll", handleScroll)
 
