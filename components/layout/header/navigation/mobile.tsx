@@ -154,10 +154,6 @@ export default function MobileNavigation({
   navigation: Array<ContentfulLink>
   headerHeight: number
 }) {
-  // TODO:
-  // fix throttle error on scroll (dev mode only)
-  // main content ui is broken using flex here
-
   const [menuOpen, setMenuOpen] = useToggle(false)
   const [menuTransitioning, setMenuTransitioning] = useToggle(false)
 
