@@ -132,12 +132,7 @@ function Menu({
       >
         {navigation?.map((link: ContentfulLink) => (
           <li key={link?.sys?.id} onClick={() => setMenuOpen(false)}>
-            <Link
-              href={getFormattedLink(link)}
-              aria-label={`Navigate to ${link?.title}`}
-            >
-              {link?.title}
-            </Link>
+            <Link href={getFormattedLink(link)}>{link?.title}</Link>
           </li>
         ))}
       </ul>
@@ -178,9 +173,7 @@ export default function MobileNavigation({
           className="font-serif text-3xl italic font-bold"
           onClick={() => setMenuOpen(false)}
         >
-          <Link href="/" aria-label="Navigate to home page">
-            {siteName}
-          </Link>
+          <Link href="/">{siteName}</Link>
         </h1>
         <MenuButton menuOpen={menuOpen} setMenuOpen={setMenuOpen} />
       </div>
