@@ -1,5 +1,6 @@
-import { isBrowser, throttle } from "@/utils/helpers"
+import { isBrowser } from "@/utils/helpers"
 import { useEffect, useRef, useState } from "react"
+import { throttle } from "lodash"
 
 export default function useScrollDirection() {
   const [scrollDirection, setScrollDirection] = useState("up")
@@ -7,7 +8,7 @@ export default function useScrollDirection() {
 
   useEffect(() => {
     if (!isBrowser) return
-    
+
     const handleScroll = throttle(() => {
       const st = window.scrollY
 
@@ -16,7 +17,7 @@ export default function useScrollDirection() {
         : setScrollDirection("up")
 
       lastScrollPos.current = st <= 0 ? 0 : st
-    })
+    }, 100)
 
     window.addEventListener("scroll", handleScroll)
 

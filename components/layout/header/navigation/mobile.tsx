@@ -13,10 +13,6 @@ function MenuButton({
   menuOpen: boolean
   setMenuOpen: any
 }) {
-  // TODO:
-  // make accessible
-  // setMenuOpen type to something other than any
-
   const menuButtonRef = useRef<HTMLDivElement>(null)
   const tl = useRef<gsap.core.Timeline>()
 
@@ -67,49 +63,58 @@ function MenuButton({
 function Menu({
   navigation,
   height,
+  menuOpen,
   setMenuOpen,
+  setMenuTransitioning,
 }: {
   navigation: Array<ContentfulLink>
   height: number
+  menuOpen: boolean
   setMenuOpen: any
+  setMenuTransitioning: any
 }) {
-  // TODO:
-  // make accessible
-  // setMenuOpen type to something other than any
-  // animate menu close
-
   const navRef = useRef<HTMLDivElement>(null)
-  const tl = useRef<gsap.core.Timeline>()
+  const tlEnter = useRef<gsap.core.Timeline>()
+  const tlTransition = useRef<gsap.core.Timeline>()
 
   useGSAP(
     () => {
-      tl.current = gsap.timeline({
-        defaults: { duration: 0.2, ease: "power1.out" },
+      tlEnter.current = gsap.timeline({ paused: true })
+
+      tlTransition.current = gsap.timeline({
+        onReverseComplete: () => setMenuTransitioning(false),
+        paused: true,
       })
 
-      tl.current
-        .set(navRef.current, {
-          opacity: 0,
-        })
-        .set("ul li", {
-          opacity: 0,
-          y: 10,
-        })
-        .to(navRef.current, {
-          opacity: 1,
-        })
-        .to(
-          "ul li",
-          {
-            opacity: 1,
-            y: 0,
-            stagger: 0.1,
-          },
-          "<"
-        )
+      tlEnter.current.fromTo(
+        "ul li",
+        { opacity: 0, y: 10 },
+        { opacity: 1, y: 0, duration: 0.2, ease: "power1.out", stagger: 0.1 }
+      )
+
+      tlTransition.current.fromTo(
+        navRef.current,
+        { opacity: 0 },
+        { duration: 0.2, ease: "power1.out", opacity: 1 }
+      )
     },
     { scope: navRef }
   )
+
+  useEffect(() => {
+    if (!tlTransition.current || !tlEnter.current) return
+
+    if (menuOpen) {
+      tlTransition.current.timeScale(1).play()
+      tlEnter.current.play()
+    } else {
+      tlTransition.current.timeScale(1.5).reverse()
+    }
+  }, [menuOpen])
+
+  useEffect(() => {
+    setMenuTransitioning(true)
+  }, [setMenuTransitioning])
 
   return (
     <nav
@@ -119,6 +124,7 @@ function Menu({
         top: `${height}px`,
       }}
       ref={navRef}
+      role="navigation"
     >
       <ul
         className="flex flex-col text-center gap-8 pb-32 h-full uppercase"
@@ -143,27 +149,41 @@ export default function MobileNavigation({
   navigation: Array<ContentfulLink>
   headerHeight: number
 }) {
-  // TODO:
-  // fix throttle error on scroll
-  // main content ui is broken using flex here
-
   const [menuOpen, setMenuOpen] = useToggle(false)
+  const [menuTransitioning, setMenuTransitioning] = useToggle(false)
 
   useLockBodyScroll(menuOpen)
+
+  useEffect(() => {
+    const handleEscape = (e: KeyboardEvent) => {
+      if (e.key === "Escape") {
+        setMenuOpen(false)
+      }
+    }
+
+    window.addEventListener("keydown", handleEscape)
+
+    return () => window.removeEventListener("keydown", handleEscape)
+  }, [setMenuOpen])
 
   return (
     <>
       <div className="p-4 flex items-center justify-between gap-6 bg-[#ffbe98]">
-        <h1 className="font-serif text-3xl italic font-bold">
+        <h1
+          className="font-serif text-3xl italic font-bold"
+          onClick={() => setMenuOpen(false)}
+        >
           <Link href="/">{siteName}</Link>
         </h1>
         <MenuButton menuOpen={menuOpen} setMenuOpen={setMenuOpen} />
       </div>
-      {menuOpen && (
+      {(menuOpen || menuTransitioning) && (
         <Menu
           navigation={navigation}
           height={headerHeight}
+          menuOpen={menuOpen}
           setMenuOpen={setMenuOpen}
+          setMenuTransitioning={setMenuTransitioning}
         />
       )}
     </>
