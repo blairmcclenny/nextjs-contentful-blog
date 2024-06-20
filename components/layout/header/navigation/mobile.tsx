@@ -118,7 +118,7 @@ function Menu({
 
   return (
     <nav
-      className="h-full w-full absolute top-0 px-4 bg-[#ffbe98]"
+      className="h-full w-full absolute top-0 px-4 bg-primary text-primary-foreground"
       style={{
         height: `calc(100vh - ${height}px)`,
         top: `${height}px`,
@@ -168,7 +168,7 @@ export default function MobileNavigation({
 
   return (
     <>
-      <div className="p-4 flex items-center justify-between gap-6 bg-[#ffbe98]">
+      <div className="p-4 flex items-center justify-between gap-6 bg-primary text-primary-foreground">
         <h1
           className="font-serif text-3xl italic font-bold"
           onClick={() => setMenuOpen(false)}

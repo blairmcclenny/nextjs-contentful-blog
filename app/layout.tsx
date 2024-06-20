@@ -38,7 +38,7 @@ export default function RootLayout({
       className={`${playfair_display.variable} ${open_sans.variable}`}
       lang="en"
     >
-      <body className="font-sans">
+      <body className="font-sans text-foreground bg-background">
         <Header />
         <main className="min-h-[200vh]">{children}</main>
         <Footer />

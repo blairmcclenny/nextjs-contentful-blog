@@ -10,7 +10,7 @@ export default function DesktopNavigation({
   navigation: Array<ContentfulLink>
 }) {
   return (
-    <div className="py-4 px-16 bg-[#ffbe98] flex items-center justify-between gap-6">
+    <div className="py-4 px-16 text-primary-foreground bg-primary flex items-center justify-between gap-6">
       <h1 className="font-serif text-3xl italic font-bold">
         <Link href="/">{siteName}</Link>
       </h1>
