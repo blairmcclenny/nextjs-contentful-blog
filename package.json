@@ -9,6 +9,7 @@
     "lint": "next lint"
   },
   "dependencies": {
+    "@contentful/rich-text-react-renderer": "^15.21.2",
     "@gsap/react": "^2.1.1",
     "gsap": "^3.12.5",
     "lodash": "^4.17.21",
