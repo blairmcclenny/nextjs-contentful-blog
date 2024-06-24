@@ -1,3 +1,5 @@
+import Container from "@/components/layout/container"
+import renderRichText from "@/components/layout/richText"
 import { getPageBySlug, getAllPages } from "@/lib/queries/page"
 import { notFound } from "next/navigation"
 interface Page {
@@ -45,9 +47,5 @@ export default async function Page({ params }: { params: { slug: string } }) {
     notFound()
   }
 
-  return (
-    <>
-      <div>{page?.title}</div>
-    </>
-  )
+  return <Container>{renderRichText(page?.body?.json)}</Container>
 }

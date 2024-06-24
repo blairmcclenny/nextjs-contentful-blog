@@ -26,7 +26,7 @@ export default async function Footer() {
           </li>
         </ul>
       </nav>
-      <p className="text-xs text-gray-400">
+      <p className="text-muted-foreground text-xs">
         &copy; <Year /> {siteSettings?.siteName}
       </p>
     </footer>
