@@ -1,7 +1,7 @@
 import Container from "@/components/layout/container"
+import renderRichText from "@/components/layout/richText"
 import { H1 } from "@/components/layout/typography"
 import { getHomePage } from "@/lib/queries/page"
-import { documentToReactComponents } from "@contentful/rich-text-react-renderer"
 
 export async function generateMetadata() {
   const homePage = await getHomePage()
@@ -29,7 +29,7 @@ export default async function Home() {
   return (
     <Container>
       <H1>{homePage?.title}</H1>
-      {homePage?.body && documentToReactComponents(homePage?.body?.json)}
+      {renderRichText(homePage?.body?.json)}
     </Container>
   )
 }

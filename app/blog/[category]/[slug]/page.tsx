@@ -1,3 +1,5 @@
+import Container from "@/components/layout/container"
+import renderRichText from "@/components/layout/richText"
 import { getPostBySlug, getAllPosts } from "@/lib/queries/blog"
 import { notFound } from "next/navigation"
 
@@ -54,9 +56,5 @@ export default async function BlogPage({
     notFound()
   }
 
-  return (
-    <>
-      <div>{post?.title}</div>
-    </>
-  )
+  return <Container>{renderRichText(post?.body?.json)}</Container>
 }
