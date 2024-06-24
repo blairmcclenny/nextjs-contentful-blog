@@ -1,6 +1,6 @@
 import { documentToReactComponents } from "@contentful/rich-text-react-renderer"
 import { BLOCKS } from "@contentful/rich-text-types"
-import { H1, H2, H3, H4, HR, LI, OL, P, UL } from "../typography"
+import { Blockquote, H1, H2, H3, H4, HR, LI, OL, P, UL } from "../typography"
 
 // TODO
 // Audit and update types (richText, options)
@@ -39,6 +39,9 @@ const defaultOptions = {
       children: React.ReactElement
     ) => <LI>{children}</LI>,
     [BLOCKS.HR]: () => <HR />,
+    [BLOCKS.QUOTE]: (node: React.ReactNode, children: React.ReactElement) => (
+      <Blockquote>{children}</Blockquote>
+    ),
   },
 }
 
