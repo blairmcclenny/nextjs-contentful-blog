@@ -1,3 +1,6 @@
+import Container from "@/components/layout/container"
+import renderRichText from "@/components/layout/richText"
+import { H1 } from "@/components/layout/typography"
 import { getHomePage } from "@/lib/queries/page"
 
 export async function generateMetadata() {
@@ -24,8 +27,9 @@ export default async function Home() {
   const homePage = await getHomePage()
 
   return (
-    <>
-      <h1>{homePage?.title}</h1>
-    </>
+    <Container>
+      <H1>{homePage?.title}</H1>
+      {renderRichText(homePage?.body?.json)}
+    </Container>
   )
 }
