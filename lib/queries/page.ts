@@ -1,5 +1,25 @@
 import { fetchGraphQL } from "../api"
 
+export interface Page {
+  sys: {
+    id: string
+  }
+  title: string
+  slug: string
+  featuredImage: FeaturedImage
+  body: {
+    json: any
+  }
+  description: string
+}
+
+interface FeaturedImage {
+  url: string
+  width: number
+  height: number
+  description: string
+}
+
 const PAGE_GRAPHQL_FIELDS = `
   sys {
     id

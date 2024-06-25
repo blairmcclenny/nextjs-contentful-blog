@@ -1,5 +1,43 @@
 import { fetchGraphQL } from "../api"
 
+export interface BlogPost {
+  sys: {
+    id: string
+  }
+  title: string
+  slug: string
+  author: {
+    name: string
+    slug: string
+  }
+  category: {
+    title: string
+    slug: string
+  }
+  featuredImage: FeaturedImage
+  body: {
+    json: any
+  }
+  description: string
+}
+
+export interface BlogCategory {
+  sys: {
+    id: string
+  }
+  title: string
+  slug: string
+  featuredImage: FeaturedImage
+  description: string
+}
+
+interface FeaturedImage {
+  url: string
+  width: number
+  height: number
+  description: string
+}
+
 const BLOG_POST_GRAPHQL_FIELDS = `
   sys {
     id
@@ -38,6 +76,7 @@ const BLOG_CATEGORY_GRAPHQL_FIELDS = `
     height
     description
   }
+  description
 `
 
 export async function getAllPosts() {
