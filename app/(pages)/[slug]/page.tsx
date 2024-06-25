@@ -1,6 +1,8 @@
 import Container from "@/components/layout/container"
 import renderRichText from "@/components/layout/richText"
+import { H1 } from "@/components/layout/typography"
 import { getPageBySlug, getAllPages } from "@/lib/queries/page"
+import Image from "next/image"
 import { notFound } from "next/navigation"
 interface Page {
   slug: string
@@ -47,5 +49,19 @@ export default async function Page({ params }: { params: { slug: string } }) {
     notFound()
   }
 
-  return <Container>{renderRichText(page?.body?.json)}</Container>
+  return (
+    <Container>
+      {page?.featuredImage && (
+        <Image
+          src={page?.featuredImage?.url}
+          alt={page?.featuredImage?.description}
+          width={page?.featuredImage?.width}
+          height={page?.featuredImage?.height}
+          className="rounded-2xl object-cover w-full aspect-video"
+        />
+      )}
+      <H1>{page?.title}</H1>
+      {renderRichText(page?.body?.json)}
+    </Container>
+  )
 }
