@@ -1,19 +1,20 @@
 import Container from "@/components/layout/container"
 import renderRichText from "@/components/layout/richText"
 import { H1 } from "@/components/layout/typography"
-import { getPageBySlug, getAllPages } from "@/lib/queries/page"
+import {
+  getPageBySlug,
+  getAllPages,
+  Page as GenericPage,
+} from "@/lib/queries/page"
 import Image from "next/image"
 import { notFound } from "next/navigation"
-interface Page {
-  slug: string
-}
 
 export async function generateMetadata({
   params,
 }: {
   params: { slug: string }
 }) {
-  const page = await getPageBySlug(params.slug)
+  const page: GenericPage = await getPageBySlug(params.slug)
 
   return {
     title: page?.title,
@@ -35,15 +36,15 @@ export async function generateMetadata({
 }
 
 export async function generateStaticParams() {
-  const pages = await getAllPages()
+  const pages: GenericPage[] = await getAllPages()
 
-  return pages.map((page: Page) => ({
+  return pages?.map((page: GenericPage) => ({
     slug: page.slug,
   }))
 }
 
 export default async function Page({ params }: { params: { slug: string } }) {
-  const page = await getPageBySlug(params.slug)
+  const page: GenericPage = await getPageBySlug(params.slug)
 
   if (!page) {
     notFound()
