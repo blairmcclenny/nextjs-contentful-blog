@@ -1,8 +1,7 @@
 import Container from "@/components/container"
-import { Card } from "@/components/ui/card"
+import { Card, CardHero } from "@/components/ui/card"
 import { BlogPost, getAllPosts } from "@/lib/queries/blog"
 import { SiteSettings, getSiteSettings } from "@/lib/queries/settings"
-import Image from "next/image"
 
 export async function generateMetadata() {
   const siteSettings: SiteSettings = await getSiteSettings()
@@ -36,13 +35,7 @@ export default async function BlogIndexPage() {
       <div className="grid grid-cols-3 gap-6">
         {posts?.map((post: BlogPost) => (
           <Card key={post?.sys?.id}>
-            <Image
-              src={post?.featuredImage?.url}
-              width={post?.featuredImage?.width}
-              height={post?.featuredImage?.height}
-              alt={post?.featuredImage?.description}
-              className="aspect-square object-cover bg-muted"
-            />
+            <CardHero image={post?.featuredImage} />
             <h3>{post?.title}</h3>
             <div>{post?.category?.title}</div>
           </Card>
