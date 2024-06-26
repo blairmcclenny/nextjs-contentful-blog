@@ -1,6 +1,6 @@
 import { Open_Sans, Playfair_Display } from "next/font/google"
 import "./globals.css"
-import { getSiteSettings } from "@/lib/queries/settings"
+import { SiteSettings, getSiteSettings } from "@/lib/queries/settings"
 import Header from "@/components/layout/header"
 import Footer from "@/components/layout/footer"
 
@@ -17,7 +17,7 @@ const open_sans = Open_Sans({
 })
 
 export async function generateMetadata() {
-  const siteSettings = await getSiteSettings()
+  const siteSettings: SiteSettings = await getSiteSettings()
 
   return {
     metadataBase: siteSettings?.siteUrl && new URL(siteSettings?.siteUrl),

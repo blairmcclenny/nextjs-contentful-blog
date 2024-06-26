@@ -1,8 +1,8 @@
-import { getAllPosts } from "@/lib/queries/blog"
-import { getSiteSettings } from "@/lib/queries/settings"
+import { BlogPost, getAllPosts } from "@/lib/queries/blog"
+import { SiteSettings, getSiteSettings } from "@/lib/queries/settings"
 
 export async function generateMetadata() {
-  const siteSettings = await getSiteSettings()
+  const siteSettings: SiteSettings = await getSiteSettings()
 
   return {
     title: "Blog",
@@ -24,8 +24,8 @@ export async function generateMetadata() {
 }
 
 export default async function BlogIndexPage() {
-  const posts = await getAllPosts()
-  const post = posts?.[0]
+  const posts: BlogPost[] = await getAllPosts()
+  const post: BlogPost = posts?.[0]
 
   return (
     <>
