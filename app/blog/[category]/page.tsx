@@ -1,16 +1,16 @@
-import { getAllCategories, getCategoryBySlug } from "@/lib/queries/blog";
-import { notFound } from "next/navigation";
-
-interface Category {
-  slug: string;
-}
+import {
+  BlogCategory as Category,
+  getAllCategories,
+  getCategoryBySlug,
+} from "@/lib/queries/blog"
+import { notFound } from "next/navigation"
 
 export async function generateMetadata({
   params,
 }: {
   params: { category: string }
 }) {
-  const category = await getCategoryBySlug(params.category)
+  const category: Category = await getCategoryBySlug(params.category)
 
   return {
     title: category?.title,
@@ -32,27 +32,27 @@ export async function generateMetadata({
 }
 
 export async function generateStaticParams() {
-  const categories = await getAllCategories();
+  const categories: Category[] = await getAllCategories()
 
-  return categories.map((category: Category) => ({
+  return categories?.map((category: Category) => ({
     category: category.slug,
-  }));
+  }))
 }
 
 export default async function BlogCategory({
   params,
 }: {
-  params: { category: string };
+  params: { category: string }
 }) {
-  const category = await getCategoryBySlug(params.category);
+  const category: Category = await getCategoryBySlug(params.category)
 
   if (!category) {
-    notFound();
+    notFound()
   }
 
   return (
     <>
       <div>{category?.title}</div>
     </>
-  );
+  )
 }
