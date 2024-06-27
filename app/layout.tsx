@@ -40,7 +40,7 @@ export default function RootLayout({
     >
       <body className="font-sans text-foreground bg-background flex flex-col min-h-screen">
         <Header />
-        <main className="flex-1">{children}</main>
+        <main className="flex-1 py-16">{children}</main>
         <Footer />
       </body>
     </html>
