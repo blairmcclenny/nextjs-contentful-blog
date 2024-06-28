@@ -1,5 +1,9 @@
+import Container from "@/components/container"
+import { H1 } from "@/components/typography"
+import { Card, CardHeader, CardHero, CardTitle } from "@/components/ui/card"
 import { BlogPost, getAllPosts } from "@/lib/queries/blog"
 import { SiteSettings, getSiteSettings } from "@/lib/queries/settings"
+import Link from "next/link"
 
 export async function generateMetadata() {
   const siteSettings: SiteSettings = await getSiteSettings()
@@ -25,11 +29,24 @@ export async function generateMetadata() {
 
 export default async function BlogIndexPage() {
   const posts: BlogPost[] = await getAllPosts()
-  const post: BlogPost = posts?.[0]
+
+  if (!posts) return null
 
   return (
-    <>
-      <div>{post?.slug}</div>
-    </>
+    <Container>
+      <H1>Blog</H1>
+      <div className="grid grid-col-1 sm:grid-cols-2 lg:grid-cols-3 gap-8 mt-10">
+        {posts?.map((post: BlogPost) => (
+          <Card key={post?.sys?.id}>
+            <Link href={`blog/${post?.category?.slug}/${post?.slug}`}>
+              <CardHero image={post?.featuredImage} />
+              <CardHeader>
+                <CardTitle>{post?.title}</CardTitle>
+              </CardHeader>
+            </Link>
+          </Card>
+        ))}
+      </div>
+    </Container>
   )
 }

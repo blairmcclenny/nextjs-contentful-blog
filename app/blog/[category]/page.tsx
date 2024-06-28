@@ -1,3 +1,6 @@
+import Container from "@/components/container"
+import { H1 } from "@/components/typography"
+import { Card, CardHeader, CardHero, CardTitle } from "@/components/ui/card"
 import {
   BlogCategory as Category,
   getAllCategories,
@@ -46,13 +49,26 @@ export default async function BlogCategory({
 }) {
   const category: Category = await getCategoryBySlug(params.category)
 
+  // TODO:
+  // get posts of category
+
   if (!category) {
     notFound()
   }
 
   return (
-    <>
-      <div>{category?.title}</div>
-    </>
+    <Container>
+      <H1>{category?.title}</H1>
+      <div className="grid grid-col-1 sm:grid-cols-2 lg:grid-cols-3 gap-8 mt-10">
+        {/* {posts?.map((post: BlogPost) => (
+          <Card key={post?.sys?.id}>
+            <CardHero image={post?.featuredImage} />
+            <CardHeader>
+              <CardTitle>{post?.title}</CardTitle>
+            </CardHeader>
+          </Card>
+        ))} */}
+      </div>
+    </Container>
   )
 }
