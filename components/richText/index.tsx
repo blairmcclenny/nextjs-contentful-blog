@@ -1,6 +1,17 @@
 import { documentToReactComponents } from "@contentful/rich-text-react-renderer"
 import { BLOCKS } from "@contentful/rich-text-types"
-import { Blockquote, H1, H2, H3, H4, HR, LI, OL, P, UL } from "../typography"
+import {
+  Blockquote,
+  H1,
+  H2,
+  H3,
+  H4,
+  HR,
+  LI,
+  OL,
+  P,
+  UL,
+} from "@/components/typography"
 
 // TODO
 // Audit and update types (richText, options)

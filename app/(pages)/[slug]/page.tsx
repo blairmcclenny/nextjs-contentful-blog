@@ -1,6 +1,6 @@
-import Container from "@/components/layout/container"
-import renderRichText from "@/components/layout/richText"
-import { H1 } from "@/components/layout/typography"
+import Container from "@/components/container"
+import renderRichText from "@/components/richText"
+import { H1 } from "@/components/typography"
 import {
   getPageBySlug,
   getAllPages,
