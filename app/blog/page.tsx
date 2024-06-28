@@ -1,11 +1,6 @@
 import Container from "@/components/container"
-import {
-  Card,
-  CardFooter,
-  CardHeader,
-  CardHero,
-  CardTitle,
-} from "@/components/ui/card"
+import { H1 } from "@/components/typography"
+import { Card, CardHeader, CardHero, CardTitle } from "@/components/ui/card"
 import { BlogPost, getAllPosts } from "@/lib/queries/blog"
 import { SiteSettings, getSiteSettings } from "@/lib/queries/settings"
 
@@ -38,14 +33,14 @@ export default async function BlogIndexPage() {
 
   return (
     <Container>
-      <div className="grid grid-cols-3 gap-8">
+      <H1>Blog</H1>
+      <div className="grid grid-col-1 sm:grid-cols-2 lg:grid-cols-3 gap-8 mt-10">
         {posts?.map((post: BlogPost) => (
           <Card key={post?.sys?.id}>
             <CardHero image={post?.featuredImage} />
             <CardHeader>
               <CardTitle>{post?.title}</CardTitle>
             </CardHeader>
-            <CardFooter>{post?.category?.title}</CardFooter>
           </Card>
         ))}
       </div>

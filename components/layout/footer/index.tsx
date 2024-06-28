@@ -6,7 +6,7 @@ export default async function Footer() {
   const siteSettings: SiteSettings = await getSiteSettings()
 
   return (
-    <footer className="flex flex-col gap-6 pt-16 pb-8 items-center">
+    <footer className="flex flex-col gap-6 pb-8 items-center">
       <nav>
         <ul className="flex gap-8">
           <li>
