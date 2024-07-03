@@ -1,4 +1,4 @@
-import { isBrowser } from "@/utils/helpers"
+import { isBrowser } from "@/lib/utils/helpers"
 import { useEffect, useRef, useState } from "react"
 import { throttle } from "lodash"
 
