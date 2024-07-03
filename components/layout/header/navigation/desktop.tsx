@@ -1,4 +1,4 @@
-import { getFormattedLink } from "@/utils/navigation"
+import { getFormattedLink } from "@/lib/utils/navigation"
 import { Link as ContentfulLink } from "@/lib/queries/settings"
 import Link from "next/link"
 

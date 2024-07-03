@@ -1,5 +1,5 @@
 import { Link as ContentfulLink } from "@/lib/queries/settings"
-import { getFormattedLink } from "@/utils/navigation"
+import { getFormattedLink } from "@/lib/utils/navigation"
 import Link from "next/link"
 import { useEffect, useRef } from "react"
 import { useLockBodyScroll, useToggle } from "react-use"

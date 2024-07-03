@@ -1,5 +1,6 @@
 import Container from "@/components/container"
 import { H1 } from "@/components/typography"
+import { Button } from "@/components/ui/button"
 import { Card, CardHeader, CardHero, CardTitle } from "@/components/ui/card"
 import { BlogPost, getAllPosts } from "@/lib/queries/blog"
 import { SiteSettings, getSiteSettings } from "@/lib/queries/settings"
@@ -46,6 +47,9 @@ export default async function BlogIndexPage() {
             </Link>
           </Card>
         ))}
+      </div>
+      <div className="mx-auto w-full mt-8 text-center">
+        <Button>Load More</Button>
       </div>
     </Container>
   )
